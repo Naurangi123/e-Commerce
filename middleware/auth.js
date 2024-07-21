@@ -1,12 +1,9 @@
 
-module.exports.isLoggedIn = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        return res.redirect('/login');
+// middleware/authMiddleware.js
+module.exports = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/login');
     }
-    next();
-};
-
-module.exports.setUser = (req, res, next) => {
-    res.locals.user = req.user || null;
-    next();
 };

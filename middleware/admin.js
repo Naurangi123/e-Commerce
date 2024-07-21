@@ -1,7 +1,7 @@
 
-module.exports = (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
+module.exports.isLoggedIn = (req, res, next) => {
+    if (req.user && req.user.isLoggedIn) {
         return next(); 
     }
-    res.redirect('/addProduct');
+    res.redirect('/products');
 };

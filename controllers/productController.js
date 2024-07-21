@@ -1,10 +1,10 @@
-const Register=require('../models/Register')
+const User=require('../models/User')
 const path = require('path');
 const Product = require('../models/Product');
 
 module.exports.newForm = async(req, res) => {
     try {
-        const user= await Register.findOne({username: req.user.username})
+        const user= await User.findOne({username: req.user.username})
         res.render('products/addProduct')
     } catch (error) {
         
@@ -12,6 +12,25 @@ module.exports.newForm = async(req, res) => {
 };
 
 
+module.exports.addProduct=async (req, res) => {
+    try {
+        // Extract form data from req.body and req.file
+        const { name, price, author, quantity } = req.body;
+        const image = req.file.filename; // Filename as stored by multer
+
+        // Create new product instance
+        const newProduct = new Product({ name, image, price, author, quantity });
+
+        // Save product to database
+        await newProduct.save();
+
+        // Redirect to product list or success page
+        res.redirect('products');
+    } catch (error) {
+        console.error('Error creating product:', error);
+        res.status(500).send('Error creating product');
+    }
+}
 
 
 module.exports.editForm = async (req, res) => {
@@ -21,7 +40,7 @@ module.exports.editForm = async (req, res) => {
             res.status(404).send('Product not found');
             return;
         }
-        res.render('products/edit', { product }); // Corrected template path
+        res.render('products/editProduct', { product }); // Corrected template path
     } catch (error) {
         console.error('Error fetching product for edit:', error);
         res.status(500).send('Error fetching product for edit');

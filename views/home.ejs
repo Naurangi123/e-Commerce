@@ -9,27 +9,24 @@
 <body>
     <header>
         <div class="navbar">
-            <% if (user){%>
-            <div class="logo"><a href="/">Welcome <%= user.username %></a></div>
-            <% } %>
+            <div class="logo"><a href="/">Welcome </a></div>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/">About us</a></li>
-                    <% if (user) { %>
-                        <li><a href="/logout">Logout</a></li>
-                        <li><a href="/"><%= user.username %></a></li>
+                    
+                        <!-- Display these items if the user is authenticated -->
+                        <li><a href="/products">Products</a></li>
                         <li><a href="/products/addProduct">Add New Product</a></li>
-                    <% } else { %>
+                        <li><a href="/logout">Logout</a></li>
+                    
+                        <!-- Display these items if the user is not authenticated -->
                         <li><a href="/login">Login</a></li>
                         <li><a href="/register">Register</a></li>
-                    <% } %>
-                    <li><a href="/products">Products</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    
 </body>
 </html>
 

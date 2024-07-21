@@ -2,14 +2,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const Register = require('./models/Register');
+const passportConfig=require('./config/passport')
+const User=require('./models/User')
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-const {setUser}=require('./middleware/auth')
 const path=require('path')
 const flash = require('connect-flash');
 
@@ -29,30 +28,23 @@ app.use(session({
     secret: 'notagoodsecret',
     resave: false,
     saveUninitialized: false
+
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(setUser)
-
-passport.use(new LocalStrategy(Register.authenticate()));
-passport.serializeUser(Register.serializeUser());
-passport.deserializeUser(Register.deserializeUser());
-
 app.use(flash());
+passportConfig(passport)
 
+//routes
 app.use('/', userRoutes);
 app.use('/products',adminRoutes);
-// app.use('/products',cartRoutes);
 
 app.get('/', async (req, res) => {
     try {
-        // Check if user is logged in
         if (req.user) {
-            // Assuming req.user contains user information after login
-            const user = await Register.findOne({ username: req.user.username });
+            const user = await User.findOne({ username: req.user.username });
             if (user) {
-                res.render('home', { user});
+                res.render('home', { user });
             } else {
                 res.render('home', { user: null});
             }
@@ -63,6 +55,12 @@ app.get('/', async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+// Make `user` available in all views
+app.use((req, res, next) => {
+    res.locals.user = req.user; 
+    next();
 });
 
 app.use((req, res, next) => {

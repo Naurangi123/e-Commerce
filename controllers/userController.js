@@ -1,64 +1,65 @@
-const Register = require('../models/Register');
+// controllers/authController.js
+const User = require('../models/User');
 const passport = require('passport');
 
-// Display registration form
-module.exports.registerForm = (req, res) => {
-    res.render('register');
-};
 
-// Handle registration logic
-module.exports.register = async (req, res, next) => {
+module.exports.registerForm=(req,res)=>{
+    res.render('register')
+}
+module.exports.register = async (req, res) => {
     try {
-        const { username, name, email, password, confirmPassword } = req.body;
-        
-        // Validate passwords
+        const { username, password, name, email, confirmPassword } = req.body;
+
         if (password !== confirmPassword) {
-            return res.redirect('/register');
+            return res.status(400).send('Passwords do not match.');
         }
-
-        // Create a new Register model instance
-        const newUser = new Register({ username, name, email,password,confirmPassword });
-        
-        // Call Register.register to register the user
-        await Register.register(newUser, password);
-
-        // Upon successful registration, log in the user
-        passport.authenticate('local')(req, res, () => {;
-            res.redirect('products');
+        const user = new User({ username, name, email ,password,confirmPassword});
+        await User.register(user, password);
+        req.login(user, (err) => {
+            if (err) {
+                return res.status(400).send('Error logging in after registration: ' + err.message);
+            }
+            res.redirect('/');
         });
-    } catch (err) {
-        res.redirect('/register',err);
+    } catch (error) {
+        res.status(400).send('Error registering user: ' + error.message);
     }
 };
 
-// Display login form
-module.exports.loginForm = (req, res) => {
-    res.render('login');
-};
+module.exports.loginForm=(req,res)=>{
+    res.render('login')
+}
 
 
-module.exports.login = async (req, res, next) => {
-    const {username,password}=req.body;
+module.exports.login = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        if (err) return next(err);
-        if (!username||!password) {
-            req.flash('error', 'Invalid email or password.');
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
             return res.redirect('/login');
         }
-        req.login(user, err => {
-            if (err) return next(err);
-            res.redirect('products');
+        req.logIn(user, async(err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
         });
     })(req, res, next);
 };
-// Handle logout
+
 module.exports.logout = (req, res) => {
-    req.session.destroy((err) => {
+    req.logout((err) => {
         if (err) {
-            console.error('Error destroying session:', err);
+            return res.status(500).send('Error logging out: ' + err.message);
         }
-        res.redirect('/');
+        res.redirect('/login');
     });
 };
 
-
+exports.ensureAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+};

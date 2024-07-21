@@ -108,4 +108,10 @@ h1{
     border: none; 
     cursor: pointer; 
 }
-
+.product-form{
+    padding: auto;
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    border: 1px solid yellow;
+}

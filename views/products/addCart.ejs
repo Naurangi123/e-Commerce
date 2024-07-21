@@ -1,0 +1,18 @@
+<%- include('home') %>
+<body>
+    <% products.forEach(product => { %>
+        <div>
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+            <h2><%= product.name %></h2>
+            <p>Price: <%= product.price %></p>
+            <p>Author: <%= product.author %></p>
+            <p>Quantity: <%= product.quantity %></p>
+            <% if (user) { %>
+                <form action="/products/addCart/<%= product.:_id %>" method="POST">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            <% } %>
+        </div>
+    <% }) %>
+</body>
+</html>

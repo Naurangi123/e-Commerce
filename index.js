@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const passportConfig=require('./config/passport')
 const User=require('./models/User')
 const Product=require('./models/Product')
+const Cart=require('./models/Cart')
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes = require('./routes/cartRoutes');

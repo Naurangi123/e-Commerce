@@ -37,7 +37,7 @@ module.exports.login = (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            return res.redirect('/login');
+            return res.redirect('/auth/login');
         }
         req.logIn(user, async(err) => {
             if (err) {

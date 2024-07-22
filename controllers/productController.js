@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 const isAuthenticated=require('../middleware/auth')
 
 module.exports.newForm = (req, res) => {
-        res.render('products/addProduct')
+    res.render('products/addProduct')
 };
 
 module.exports.addProduct=async (req, res) => {
@@ -50,43 +50,6 @@ module.exports.updateProduct = async (req, res) => {
     }
 };
 
-module.exports.cartForm = (req, res) => {
-    res.render('products/addCart')
-};
-
-module.exports.addToCart = async (req, res) => {
-    try {
-        const product_id = await Product.exists({ _id: req.params._id });
-        const productId = product_id 
-        const quantity = parseInt(req.body.quantity);
-
-        if (!req.session.cart) {
-            req.session.cart = []; 
-        }
-
-        let cart = req.session.cart;
-        let found = false;
-
-        // Check if the product is already in the cart
-        for (let i = 0; i < cart.length; i++) {
-            if (cart[i].productId === productId) {
-                cart[i].quantity += quantity;
-                found = true;
-                break;
-            }
-        }
-        // If the product is not already in the cart, add it
-        if (!found) {
-            cart.push({ productId, quantity });
-        }
-        req.session.cart = cart; // Save updated cart back to the session
-
-        res.redirect('/cart'); // Redirect to the cart page or respond with a success message
-    } catch (error) {
-        console.error('Error adding to cart:', error);
-        res.status(500).send('Error adding to cart');
-    }
-};
 
 module.exports.deleteProduct = async (req, res) => {
     try {

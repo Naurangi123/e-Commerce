@@ -8,7 +8,7 @@
             <p>Author: <%= product.author %></p>
             <p>Quantity: <%= product.quantity %></p>
             <% if (user) { %>
-                <form action="/products/addCart/<%= product.:_id %>" method="POST">
+                <form action="/cart/<%= product._id %>/addCart" method="POST">
                     <button type="submit">Add to Cart</button>
                 </form>
             <% } %>

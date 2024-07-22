@@ -6,9 +6,10 @@ const isAuth = require('../middleware/auth');
 
 
 router.get('/addProduct', isAuth, productController.newForm);
-router.post('/', isAuth, upload, productController.addProduct);
+router.post('/', upload, productController.addProduct);
 router.get('/:_id/edit',isAuth, productController.editForm);
-router.put('/:_id/',isAuth, productController.updateProduct);
+router.put('/:_id/',upload, productController.updateProduct);
+router.get('/cart', isAuth, productController.cartForm);
 router.post('/:_id/addCart',isAuth, productController.addToCart);
 router.delete('/:_id',isAuth, productController.deleteProduct);
 

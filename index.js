@@ -31,6 +31,8 @@ app.use(session({
     saveUninitialized: false
 
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -49,7 +51,6 @@ app.get('/', async (req, res) => {
                 username = user.username;
             }
         }
-
         const products = await Product.find().sort({ _id: -1 });
 
         res.render('home', { products, authenticated, username });
@@ -59,10 +60,9 @@ app.get('/', async (req, res) => {
     }
 });
 
-
-
 app.use('/auth', userRoutes);
 app.use('/products',adminRoutes);
+app.use('/cart',cartRoutes)
 
 // Make `user` available in all views
 app.use((req, res, next) => {

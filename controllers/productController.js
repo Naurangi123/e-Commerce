@@ -3,28 +3,17 @@ const path = require('path');
 const Product = require('../models/Product');
 const isAuthenticated=require('../middleware/auth')
 
-module.exports.newForm = async(req, res) => {
-    try {
-        const user= await User.findOne({username: req.user.username})
+module.exports.newForm = (req, res) => {
         res.render('products/addProduct')
-    } catch (error) {
-        
-    }
 };
-
-
 
 module.exports.addProduct=async (req, res) => {
     try {
-        if(req.isAuthenticated){
-            const { name, price, author, quantity } = req.body;
-            const image = req.file.filename; 
-            const newProduct = new Product({ name, image, price, author, quantity });
-            await newProduct.save();
-            res.redirect('/',isAuthenticated);
-        }else{
-            res.render('products')
-        }
+        const { name, price, author, quantity } = req.body;
+        const image = req.file.filename; 
+        const newProduct = new Product({ name, image, price, author, quantity });
+        await newProduct.save();
+        res.redirect('/');
     } catch (error) {
         console.error('Error creating product:', error);
         res.status(500).send('Error creating product');
@@ -50,8 +39,10 @@ module.exports.editForm = async (req, res) => {
 
 module.exports.updateProduct = async (req, res) => {
     try {
-        const { name, image, price, author, quantity } = req.body;
-        await Product.findByIdAndUpdate(req.params.id, { name, image, price, author, quantity });
+        const { name, price, author, quantity } = req.body;
+        const image = req.file.filename; 
+        await Product.findByIdAndUpdate(req.params._id, { name, image, price, author, quantity });
+
         res.redirect('/'); // Redirect to the product list page after update
     } catch (error) {
         console.error('Error updating product:', error);
@@ -59,31 +50,18 @@ module.exports.updateProduct = async (req, res) => {
     }
 };
 
-
-
-
-// module.exports.index = async (req, res) => {
-//     try {
-//         const products = await Product.find().sort({ _id: -1 });
-//         const authenticated = req.isAuthenticated();
-//         const username=await User.findOne({username:req.user.username})
-//         res.render('products/index', { products, authenticated,username });
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).send('Error fetching products');
-//         res.render('/auth/login')
-//     }
-// };
-
-
+module.exports.cartForm = (req, res) => {
+    res.render('products/addCart')
+};
 
 module.exports.addToCart = async (req, res) => {
     try {
-        const productId = req.params.id; // Assuming product ID is passed as a parameter
-        const quantity = parseInt(req.body.quantity); // Assuming quantity is passed in the request body
+        const product_id = await Product.exists({ _id: req.params._id });
+        const productId = product_id 
+        const quantity = parseInt(req.body.quantity);
 
         if (!req.session.cart) {
-            req.session.cart = []; // Initialize cart if it doesn't exist in the session
+            req.session.cart = []; 
         }
 
         let cart = req.session.cart;
@@ -97,30 +75,30 @@ module.exports.addToCart = async (req, res) => {
                 break;
             }
         }
-
         // If the product is not already in the cart, add it
         if (!found) {
             cart.push({ productId, quantity });
         }
-
         req.session.cart = cart; // Save updated cart back to the session
 
-        res.redirect('/prodcuts/cart'); // Redirect to the cart page or respond with a success message
+        res.redirect('/cart'); // Redirect to the cart page or respond with a success message
     } catch (error) {
         console.error('Error adding to cart:', error);
         res.status(500).send('Error adding to cart');
     }
 };
 
-
 module.exports.deleteProduct = async (req, res) => {
     try {
-        const productExists = await Product.exists({ _id: req.params.id });
+        const productExists = await Product.exists({ _id: req.params._id }); // Ensure consistent naming (_id)
 
         if (productExists) {
-            const deleteProduct = req.params.id;
-            await Product.findByIdAndRemove(deleteProduct);
-            res.redirect('/');
+            const deletedProduct = await Product.findByIdAndDelete(req.params._id);
+            if (deletedProduct) {
+                res.redirect('/');
+            } else {
+                res.status(404).send("Product not found");
+            }
         } else {
             res.status(404).send("Product not found");
         }
@@ -129,6 +107,7 @@ module.exports.deleteProduct = async (req, res) => {
         res.status(500).send('Error deleting product');
     }
 };
+
 
 
 

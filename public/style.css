@@ -5,7 +5,7 @@ body {
 }
 
 header {
-    background: #b585852f;
+    background: #6fea32dc;
     padding: 20px 0;
     position: sticky;
     top: 0;
@@ -204,6 +204,8 @@ h1 ,h3, p{
     display: flex;
     flex-wrap: wrap; 
     gap: 20px;
+    padding-left: 14px;
+    padding-bottom: 1.5rem;
 }
 
 .product {
@@ -212,7 +214,13 @@ h1 ,h3, p{
     border: 1px solid #ccc; 
     padding: 10px; 
     box-sizing: border-box;  
+    box-shadow: 0 0 10px rgb(162, 27, 220),0 4px 6px rgba(42, 180, 84, 0.868),0 10px 20px rgb(110, 229, 41);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+.product:hover {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+  }
 
 
 .product .image img {

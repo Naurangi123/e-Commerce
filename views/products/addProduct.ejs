@@ -1,6 +1,5 @@
 <!-- views/products/new.ejs -->
 <body>
-    <% if(authenticated) { %>
     <div class="product-form">
         <h1>Add Item/Product</h1>
         <form action="/products" method="POST" enctype="multipart/form-data">
@@ -12,8 +11,5 @@
             <button type="submit">Create Product</button>
         </form>
     </div>
-    <% } else { %>
-    <p>Please <a href="/auth/login">Login</a></p>
-    <% } %>
 </body>
 </html>

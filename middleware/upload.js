@@ -1,4 +1,4 @@
-// Import necessary modules
+// // Import necessary modules
 const multer = require('multer');
 const path = require('path');
 
@@ -36,5 +36,5 @@ function checkFileType(file, cb) {
         cb('Error: Images only!');
     }
 }
-
 module.exports = upload;
+

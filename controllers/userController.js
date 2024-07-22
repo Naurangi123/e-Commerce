@@ -49,17 +49,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-    req.logout((err) => {
-        if (err) {
-            return res.status(500).send('Error logging out: ' + err.message);
-        }
-        res.redirect('auth/login');
-    });
-};
-
-exports.ensureAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
+    req.logout()
     res.redirect('auth/login');
 };
+

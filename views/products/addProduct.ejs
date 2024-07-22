@@ -1,8 +1,8 @@
 <!-- views/products/new.ejs -->
-<%-include('../home')%>
 <body>
+    <% if(authenticated) { %>
     <div class="product-form">
-        <h1>New Product Form</h1>
+        <h1>Add Item/Product</h1>
         <form action="/products" method="POST" enctype="multipart/form-data">
             <input type="text" id="name" name="name"placeholder="Product Name" required><br>
             <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/gif" placeholder="Select an image" required><br>
@@ -12,5 +12,8 @@
             <button type="submit">Create Product</button>
         </form>
     </div>
+    <% } else { %>
+    <p>Please <a href="/auth/login">Login</a></p>
+    <% } %>
 </body>
 </html>

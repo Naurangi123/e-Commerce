@@ -4,7 +4,7 @@ const passport = require('passport');
 
 
 module.exports.registerForm=(req,res)=>{
-    res.render('register')
+    res.render('auth/register')
 }
 module.exports.register = async (req, res) => {
     try {
@@ -27,7 +27,7 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.loginForm=(req,res)=>{
-    res.render('login')
+    res.render('auth/login')
 }
 
 
@@ -53,7 +53,7 @@ module.exports.logout = (req, res) => {
         if (err) {
             return res.status(500).send('Error logging out: ' + err.message);
         }
-        res.redirect('/login');
+        res.redirect('auth/login');
     });
 };
 
@@ -61,5 +61,5 @@ exports.ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/login');
+    res.redirect('auth/login');
 };

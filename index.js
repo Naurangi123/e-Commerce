@@ -6,6 +6,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const passportConfig=require('./config/passport')
 const User=require('./models/User')
+const Product=require('./models/Product')
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -22,7 +23,7 @@ mongoose.connect('mongodb://localhost:27017/e-commerce', {
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'notagoodsecret',
@@ -36,26 +37,32 @@ app.use(flash());
 passportConfig(passport)
 
 //routes
-app.use('/', userRoutes);
-app.use('/products',adminRoutes);
-
+// main file route
 app.get('/', async (req, res) => {
     try {
-        if (req.user) {
+        let username = null;
+        let authenticated = req.isAuthenticated();
+
+        if (authenticated) {
             const user = await User.findOne({ username: req.user.username });
             if (user) {
-                res.render('home', { user });
-            } else {
-                res.render('home', { user: null});
+                username = user.username;
             }
-        } else {
-            res.render('home', { user: null });
         }
+
+        const products = await Product.find().sort({ _id: -1 });
+
+        res.render('home', { products, authenticated, username });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+
+app.use('/auth', userRoutes);
+app.use('/products',adminRoutes);
 
 // Make `user` available in all views
 app.use((req, res, next) => {

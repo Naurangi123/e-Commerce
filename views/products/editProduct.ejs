@@ -1,14 +1,15 @@
 <!-- views/products/edit.ejs -->
 <body>
-    <h1>Edit Product</h1>
-
-    <form action="/products/<%= product._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-        <input type="text" id="name" name="name" value="<%= product.name %>" required><br><br>
-        <input type="file" id="image" name="image" value="<%= product.image %>" required><br><br>
-        <input type="number" id="price" name="price" value="<%= product.price %>" required><br><br>
-        <input type="text" id="author" name="author" value="<%= product.author %>" required><br><br>
-        <input type="number" id="quantity" name="quantity" value="<%= product.quantity %>" required><br><br>
-        <button type="submit">Update Product</button>
-    </form>
+    <div class="edit-product">
+        <h1>Edit Product</h1>
+        <form action="/products/<%= product._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <input type="text" id="name" name="name" value="<%= product.name %>" required><br><br>
+            <input type="file" id="image" name="image" value="<%= product.image %>" required><br><br>
+            <input type="number" id="price" name="price" value="<%= product.price %>" required><br><br>
+            <input type="text" id="author" name="author" value="<%= product.author %>" required><br><br>
+            <input type="number" id="quantity" name="quantity" value="<%= product.quantity %>" required><br><br>
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 const User=require('../models/User')
 const path = require('path');
 const Product = require('../models/Product');
+const isAuthenticated=require('../middleware/auth')
 
 module.exports.newForm = async(req, res) => {
     try {
@@ -12,20 +13,18 @@ module.exports.newForm = async(req, res) => {
 };
 
 
+
 module.exports.addProduct=async (req, res) => {
     try {
-        // Extract form data from req.body and req.file
-        const { name, price, author, quantity } = req.body;
-        const image = req.file.filename; // Filename as stored by multer
-
-        // Create new product instance
-        const newProduct = new Product({ name, image, price, author, quantity });
-
-        // Save product to database
-        await newProduct.save();
-
-        // Redirect to product list or success page
-        res.redirect('products');
+        if(req.isAuthenticated){
+            const { name, price, author, quantity } = req.body;
+            const image = req.file.filename; 
+            const newProduct = new Product({ name, image, price, author, quantity });
+            await newProduct.save();
+            res.redirect('/',isAuthenticated);
+        }else{
+            res.render('products')
+        }
     } catch (error) {
         console.error('Error creating product:', error);
         res.status(500).send('Error creating product');
@@ -62,15 +61,20 @@ module.exports.updateProduct = async (req, res) => {
 
 
 
-module.exports.index = async (req, res) => {
-    try {
-        const products = await Product.find().sort({ _id: -1 })
-        res.render('products/index', { products }); // Render a view to display products
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).send('Error fetching products');
-    }
-};
+
+// module.exports.index = async (req, res) => {
+//     try {
+//         const products = await Product.find().sort({ _id: -1 });
+//         const authenticated = req.isAuthenticated();
+//         const username=await User.findOne({username:req.user.username})
+//         res.render('products/index', { products, authenticated,username });
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         res.status(500).send('Error fetching products');
+//         res.render('/auth/login')
+//     }
+// };
+
 
 
 module.exports.addToCart = async (req, res) => {

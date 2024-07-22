@@ -43,28 +43,160 @@ header {
     font-weight: 500;
 }
 
-.form{
-    margin-left: 30rem;
+/* Registration */
+
+/* Basic styles for the form */
+.register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 5px;
 }
-form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 50%;
+
+h1 {
+    text-align: center;
+    color: #ba55d3;
 }
-form input{
-    display: grid;
-    grid-column: auto;
-    gap: 5px;
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
     padding: 10px;
-    margin: 5px;
-    color: #1d4ed8;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #ba55d3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a450bd;
+}
+
+.register-form form button{
+    margin-left: 6rem;
+    padding: .5rem 5rem;
+}
+.register-form form button:hover{
+    background-color: #31d831;
+}
+a {
+    color: #ba55d3;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        padding: 8px;
+    }
+
+    input[type="submit"] {
+        padding: 12px 20px;
+    }
+}
+
+/* Login form */
+
+/* Basic styles for the form */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+    color: #ba55d3;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #ba55d3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a450bd;
+}
+
+.login-form form button{
+    margin-left: 6rem;
+    padding: .5rem 5rem;
+}
+.login-form form button:hover{
+    background-color: #31d831;
+}
+a {
+    color: #ba55d3;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        padding: 8px;
+    }
+
+    input[type="submit"] {
+        padding: 12px 20px;
+    }
+}
+
 
 /* Style for the products container */
 
-h1{
+h1 ,h3, p{
     text-align: center;
     color: rgba(161, 35, 192, 0.632);
 }

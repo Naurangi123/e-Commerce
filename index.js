@@ -6,8 +6,6 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const passportConfig=require('./config/passport')
 const User=require('./models/User')
-const Product=require('./models/Product')
-const Cart=require('./models/Cart')
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -40,21 +38,17 @@ app.use(flash());
 passportConfig(passport)
 
 //routes
-// main file route
 app.get('/', async (req, res) => {
     try {
         let username = null;
         let authenticated = req.isAuthenticated();
-
         if (authenticated) {
             const user = await User.findOne({ username: req.user.username });
             if (user) {
                 username = user.username;
             }
         }
-        const products = await Product.find().sort({ _id: -1 });
-
-        res.render('home', { products, authenticated, username });
+        res.render('home', { authenticated, username });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

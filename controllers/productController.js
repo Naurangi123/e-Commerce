@@ -3,8 +3,13 @@ const path = require('path');
 const Product = require('../models/Product');
 const isAuthenticated=require('../middleware/auth')
 
-module.exports.newForm = (req, res) => {
-    res.render('products/addProduct')
+module.exports.newForm = async(req, res) => {
+    let username = null;
+    const user = await User.findOne({ username: req.user.username });
+    if (user) {
+        username = user.username;
+    }
+    res.render('products/addProduct',{username})
 };
 
 module.exports.addProduct=async (req, res) => {

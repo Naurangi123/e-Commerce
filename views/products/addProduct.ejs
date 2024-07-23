@@ -1,6 +1,7 @@
 <!-- views/products/new.ejs -->
-<body>
-    <div class="product-form">
+<%-include('../layouts/header') %>
+<%-include('../home') %>
+    <div class="product-add-form">
         <h1>Add Item/Product</h1>
         <form action="/products" method="POST" enctype="multipart/form-data">
             <input type="text" id="name" name="name"placeholder="Product Name" required><br>
@@ -11,5 +12,4 @@
             <button type="submit">Create Product</button>
         </form>
     </div>
-</body>
-</html>
+<%-include('../layouts/footer') %>

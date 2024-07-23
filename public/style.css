@@ -255,3 +255,75 @@ h1 ,h3, p{
     top: 50%;
     border: 1px solid yellow;
 }
+/* add product */
+.product-add-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+    color: #ba55d3;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #ba55d3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a450bd;
+}
+
+.product-add-form form button{
+    margin-left: 6rem;
+    padding: .5rem 5rem;
+}
+.product-add-form form button:hover{
+    background-color: #31d831;
+}
+a {
+    color: #ba55d3;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="file"] {
+        padding: 8px;
+    }
+
+    input[type="submit"] {
+        padding: 12px 20px;
+    }
+}

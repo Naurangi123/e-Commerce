@@ -1,30 +1,38 @@
 <%- include('../layouts/header') %>
 <%-include('../home') %>
+<main class="container">
     <h1>Your Cart</h1>
-    <% if (cart && cart.products.length > 0) { %>
-        <ul>
-            <% cart.products.forEach(item => { %>
-                <li>
-                    <h2><%= item.product.name %></h2>
-                    <p>Price: $<%= item.product.price %></p>
-                    <p>Author: <%= item.product.author %></p>
-                    <p>Quantity: <%= item.quantity %></p>
-                    <form action="/cart/update" method="POST">
-                        <input type="hidden" name="productId" value="<%= item.product._id %>">
-                        <input type="number" name="quantity" value="<%= item.quantity %>">
-                        <button type="submit">Update Quantity</button>
-                    </form>
-                    <form action="/cart/remove" method="POST">
-                        <input type="hidden" name="productId" value="<%= item.product._id %>">
-                        <button type="submit">Remove</button>
-                    </form>
-                </li>
-            <% }); %>
-        </ul>
-        <form action="/cart/checkout" method="POST">
-            <button type="submit">Checkout</button>
-        </form>
-    <% } else { %>
-        <p>Your cart is empty.</p>
-    <% } %>
+    <div class="cart-products">
+        <% if (cart && cart.products.length > 0) { %>
+            <div class="product-list">
+                <% cart.products.forEach(item => { %>
+                    <div class="product-item">
+                        <h2><%= item.product.name %></h2>
+                        <div class="image">
+                            <img src="/uploads/<%= item.product.image %>" alt="Product Image" >
+                        </div>
+                        <hr>
+                        <p>Price: ₹<%= item.product.price %></p>
+                        <p>Author: <%= item.product.author %></p>
+                        <p>Quantity: <%= item.quantity %></p>
+                        <form action="/cart/update" method="POST">
+                            <input type="hidden" name="productId" value="<%= item.product._id %>">
+                            <input type="number" name="quantity" value="<%= item.quantity %>">
+                            <button type="submit">UpQty</button>
+                        </form>
+                        <form action="/cart/remove" method="POST">
+                            <input type="hidden" name="productId" value="<%= item.product._id %>">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+            <form action="/cart/checkout" method="POST">
+                <button type="submit">Checkout</button>
+            </form>
+        <% } else { %>
+            <p>Your cart is empty.</p>
+        <% } %>
+    </div>
+</main>
 <%-include('../layouts/footer') %>

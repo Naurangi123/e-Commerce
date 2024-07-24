@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    
 }
 
 header {
@@ -91,13 +92,6 @@ input[type="submit"]:hover {
 .register-form form button:hover{
     background-color: #31d831;
 }
-a {
-    color: #ba55d3;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-}
 
 a:hover {
     text-decoration: underline;
@@ -166,13 +160,6 @@ input[type="submit"]:hover {
 .login-form form button:hover{
     background-color: #31d831;
 }
-a {
-    color: #ba55d3;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-}
 
 a:hover {
     text-decoration: underline;
@@ -193,34 +180,36 @@ a:hover {
     }
 }
 
+/* Home page */
+
 
 /* Style for the products container */
 
-h1 ,h3, p{
+h1{
+    display: flex;
+    justify-content: center;
     text-align: center;
-    color: rgba(161, 35, 192, 0.632);
+    color: #1f0fb1;
+}
+p a{
+    color: #333;
 }
 .products {
     display: flex;
     flex-wrap: wrap; 
-    gap: 20px;
+    gap: 10px;
     padding-left: 14px;
     padding-bottom: 1.5rem;
 }
 
 .product {
-    flex: 1 0 calc(25% - 20px); 
-    max-width: calc(25% - 20px); 
+    flex: 1 0 calc(30% - 25px); 
+    max-width: calc(30% - 135px); 
     border: 1px solid #ccc; 
     padding: 10px; 
-    box-sizing: border-box;  
+    box-sizing: border-box; 
     box-shadow: 0 0 10px rgb(162, 27, 220),0 4px 6px rgba(42, 180, 84, 0.868),0 10px 20px rgb(110, 229, 41);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-.product:hover {
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
-    transform: scale(1.1);
-  }
 
 
 .product .image img {
@@ -229,25 +218,22 @@ h1 ,h3, p{
 
 
 .product-info {
-    padding-left: 10px; 
+    padding: 0 5px 0 5px; 
+}
+.product-info p{
+    margin: 0;
 }
 
 .buttons {
     display: flex;
-    gap: 10px;
+    gap: 50px;
+}
+.buttons button{
+    cursor: pointer;
+    border: none;
+    background: none;
 }
 
-.buttons .form1 {
-    margin: 0;
-}
-
-.buttons button {
-    padding: 5px 15px; 
-    background-color: #007bff; 
-    color: #fff; 
-    border: none; 
-    cursor: pointer; 
-}
 .product-form{
     padding: auto;
     margin: auto;
@@ -264,10 +250,6 @@ h1 ,h3, p{
     border-radius: 5px;
 }
 
-h1 {
-    text-align: center;
-    color: #ba55d3;
-}
 
 input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
@@ -301,13 +283,6 @@ input[type="submit"]:hover {
 .product-add-form form button:hover{
     background-color: #31d831;
 }
-a {
-    color: #ba55d3;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-}
 
 a:hover {
     text-decoration: underline;
@@ -326,4 +301,63 @@ a:hover {
     input[type="submit"] {
         padding: 12px 20px;
     }
+}
+
+/* Cart  */
+
+main .cart-products {
+    margin-top: 20px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-left: 14px;
+    padding-bottom: 1.5rem;
+}
+
+.product-item {
+    /*flex: 1 1 45%; /* Adjust width of product items */
+    flex: 1 0 calc(30% - 25px); 
+    max-width: calc(30% - 135px); 
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+img{
+    width: 15rem;
+    height: 8rem;
+    object-fit: fill;
+}
+
+.product-item h2 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.product-item p {
+    margin-bottom: 5px;
+}
+
+.product-item form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    height: 25px;
+}
+
+.product-item form button {
+    cursor: pointer;
+    padding: 4px 12px;
+    background-color: #3fb12e;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+}
+
+.product-item form button:hover {
+    background-color: #0056b3;
 }

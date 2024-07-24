@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
 const User=require('../models/User')
+const mongoose=require('mongoose')
 
 module.exports.getAllProducts = async (req, res) => {
     try {
@@ -19,34 +20,38 @@ module.exports.getAllProducts = async (req, res) => {
 module.exports.addProductToCart = async (req, res) => {
     try {
         const { productId } = req.body;
+        if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).send("Invalid productId");
+        }
         const product = await Product.findById(productId);
-        console.log('product',product)
+
         if (!product) {
             return res.status(404).send("Product not found");
         }
+        let cart = await Cart.findOne({ userId: req.user._id });
 
-        const cart = await Cart.findOne({ userId: req.user._id });
-        console.log("cart",cart)
         if (!cart) {
             const newCart = new Cart({
                 userId: req.user._id,
                 products: [{ product: productId, quantity: 1 }]
             });
-            console.log("newcart",newCart)
             await newCart.save();
-        } else {
-            const existingProduct = cart.products.find(p => p.product.toString() === productId);
-            console.log("existingProduct",existingProduct)
-            if (existingProduct) {
-                existingProduct.quantity += 1;
-            } else {
-                cart.products.push({ product: productId, quantity: 1 });
-            }
-            await cart.save();
+            return res.redirect('/cart'); 
         }
 
+        const existingProductIndex = cart.products.findIndex(p => {
+            return p.product?.toString() === productId.toString();
+        });
+        if (existingProductIndex !== -1) {
+            cart.products[existingProductIndex].quantity += 1;
+        } else {
+            cart.products.push({ product: productId, quantity: 1 });
+        }
+
+        await cart.save();
         res.redirect('/cart');
     } catch (err) {
+        console.error(err);
         res.status(500).send("Error adding product to cart");
     }
 };
@@ -104,7 +109,6 @@ module.exports.getCart = async (req, res) => {
             username = user.username;
         }
         const cart = await Cart.findOne({ userId: req.user._id }).populate('products.product');
-        console.log("cart",cart)
         res.render('cart/cart', { cart,username });
     } catch (err) {
         res.status(500).send("Error retrieving cart");

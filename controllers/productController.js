@@ -28,12 +28,17 @@ module.exports.addProduct=async (req, res) => {
 
 module.exports.editForm = async (req, res) => {
     try {
+        let username = null;
+        const user = await User.findOne({ username: req.user.username });
+        if (user) {
+            username = user.username;
+        }
         const product = await Product.findById(req.params._id);
         if (!product) {
             res.status(404).send('Product not found');
             return;
         }
-        res.render('products/editProduct', { product }); // Corrected template path
+        res.render('products/editProduct', { product,username}); // Corrected template path
     } catch (error) {
         console.error('Error fetching product for edit:', error);
         res.status(500).send('Error fetching product for edit');

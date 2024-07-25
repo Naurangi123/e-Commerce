@@ -318,7 +318,6 @@ main .cart-products {
 }
 
 .product-item {
-    /*flex: 1 1 45%; /* Adjust width of product items */
     flex: 1 0 calc(30% - 25px); 
     max-width: calc(30% - 135px); 
     background-color: #fff;
@@ -360,4 +359,59 @@ img{
 
 .product-item form button:hover {
     background-color: #0056b3;
+}
+/* Profiles */
+
+.profile {
+    border: 1px solid #ddd; 
+    border-radius: 8px;    
+    padding: 1rem 0 0 0rem;       
+    margin-bottom: 16px;   
+    background-color: #f9f9f9; 
+    max-width: 600px;      
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-left: 21rem;
+}
+.profile .image {
+    text-align: center; 
+    margin-bottom: 12px; 
+}
+
+.profile .image img {
+    width: 100px;         
+    height: 100px;        
+    border-radius: 50%;   
+    object-fit: cover;    
+}
+
+.profile-info {
+    line-height: 1.6;
+    margin-left: 16rem; 
+}
+
+.profile-info p {
+    margin: 4px 0;     
+    color: #333;       
+}
+
+.profile-info p:first-child {
+    font-weight: bold; 
+}
+
+
+.profile hr {
+    border: 0;
+    border-top: 1px solid #ddd; 
+    margin: 12px 0; 
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 8rem;
+    margin-left: 10rem;
+}
+.profile-buttons button{
+    cursor: pointer;
+    border: none;
+    background: none;
 }

@@ -6,6 +6,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const passportConfig=require('./config/passport')
 const User=require('./models/User')
+const profileRoutes=require('./routes/profileRoutes')
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -55,6 +56,7 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.use('/profile', profileRoutes);
 app.use('/auth', userRoutes);
 app.use('/products',adminRoutes);
 app.use('/cart',cartRoutes)

@@ -1,7 +1,5 @@
 const User=require('../models/User')
-const path = require('path');
 const Product = require('../models/Product');
-const isAuthenticated=require('../middleware/auth')
 
 module.exports.newForm = async(req, res) => {
     let username = null;

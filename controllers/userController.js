@@ -1,6 +1,7 @@
 // controllers/authController.js
 const User = require('../models/User');
 const passport = require('passport');
+const isAuthenticated=require('../middleware/auth')
 
 
 module.exports.registerForm=(req,res)=>{
@@ -15,14 +16,10 @@ module.exports.register = async (req, res) => {
         }
         const user = new User({ username, name, email ,password,confirmPassword});
         await User.register(user, password);
-        req.login(user, (err) => {
-            if (err) {
-                return res.status(400).send('Error logging in after registration: ' + err.message);
-            }
-            res.redirect('/');
-        });
+        req.flash('success', 'You have registered successfully!');
+        res.redirect('/');
     } catch (error) {
-        res.status(400).send('Error registering user: ' + error.message);
+        req.flash('error', err.message);
     }
 };
 
@@ -31,25 +28,16 @@ module.exports.loginForm=(req,res)=>{
 }
 
 
-module.exports.login = (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect('/auth/login');
-        }
-        req.logIn(user, async(err) => {
-            if (err) {
-                return next(err);
-            }
-            res.redirect('/');
-        });
-    })(req, res, next);
-};
+module.exports.login= passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: 'auth/login',
+    failureFlash: true,
+});
 
-module.exports.logout = (req, res) => {
-    req.logout()
-    res.redirect('auth/login');
+module.exports.logout= (req, res) => {
+    req.logout(() => {
+        req.flash('success', 'You have logged out successfully!');
+        res.redirect('auth/login');
+    });
 };
 

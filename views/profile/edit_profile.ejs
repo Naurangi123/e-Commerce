@@ -1,7 +1,9 @@
 <!-- views/edit_profile.ejs -->
 <%-include('../layouts/header') %>
+
 <div class="product-add-form">
-    <form action="/profiles/<%= profile._id %>/edit" method="POST">
+    <h1>Edit Your Profile</h1>
+    <form action="/profile/<%= profile._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" value="<%= profile.name %>" required>
         <input type="file" name="image" value="<%= profile.image %>" required>
         <textarea name="bio" required><%= profile.bio %></textarea>

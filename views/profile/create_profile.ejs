@@ -2,12 +2,12 @@
 <%-include('../layouts/header') %>
 <div class="product-add-form">
     <h1>Create Profile</h1>
-    <form action="/profile" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="file" name="image" placeholder="Select an Image" required>
-        <textarea name="bio" placeholder="Bio" required></textarea>
-        <input type="text" name="location" placeholder="Location" required>
-        <input type="text" name="user" placeholder="User" required value="<%= username %>">
+    <form action="/profile/profiles" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="file" name="image" accept="image/jpeg, image/png, image/gif" placeholder="Select an Image" required><br><br>
+        <textarea name="bio" placeholder="Bio" required></textarea><br>
+        <input type="text" name="location" placeholder="Location" required><br>
+        <input type="text" name="user" placeholder="User" required value="<%= username %>"><br>
         <button type="submit">Create Profile</button>
     </form>
 </div>

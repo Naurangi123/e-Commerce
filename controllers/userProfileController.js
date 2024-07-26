@@ -12,9 +12,6 @@ module.exports.profile= async(req, res) => {
     res.render('profile/profiles',{ profiles,username});
 };
 
-
-
-
 // Display form to create a new profile
 module.exports.profileForm= async(req, res) => {
     let username = null;
@@ -43,7 +40,7 @@ module.exports.createProfile = async (req, res) => {
         const profile = new Profile({name,image,bio,location, user: user._id,username: user.username });
 
         await profile.save();
-        res.redirect('profile/profiles');
+        res.redirect('/profile/profiles');
     } catch (err) {
         console.error('Error creating profile:', err);
         res.status(500).send('Error creating profile: ' + err.message);
@@ -54,11 +51,11 @@ module.exports.createProfile = async (req, res) => {
 // Display form to edit a profile
 module.exports.editProfileForm = async (req, res) => {
     try {
-        const profile = await Profile.findById(req.params.id);
+        const profile = await Profile.findById(req.params._id);
         if (!profile) {
             return res.send('Profile not found');
         }
-        res.render('edit_profile', { profile });
+        res.render('profile/edit_profile', { profile });
     } catch (err) {
         console.error(err);
         res.send('Error fetching profile');
@@ -69,9 +66,9 @@ module.exports.editProfileForm = async (req, res) => {
 module.exports.editProfile= async (req, res) => {
     try {
         const { name, bio, location } = req.body;
-        const image = req.file.filename; 
-        await Profile.findByIdAndUpdate(req.params.id, { name, image, bio, location });
-        res.redirect('/profile'); // Redirect to profiles list or profile view
+        const image = req.file ? req.file.filename : undefined; 
+        await Profile.findByIdAndUpdate(req.params._id, { name, image, bio, location });
+        res.redirect('/profile/profiles'); 
     } catch (err) {
         console.error(err);
         res.send('Error updating profile');
@@ -81,8 +78,8 @@ module.exports.editProfile= async (req, res) => {
 // Delete a profile
 module.exports.deleteProfile= async (req, res) => {
     try {
-        await Profile.findByIdAndDelete(req.params.id);
-        res.redirect('/profile'); 
+        await Profile.findByIdAndDelete(req.params._id);
+        res.redirect('/profile/profiles'); 
     } catch (err) {
         console.error(err);
         res.send('Error deleting profile');

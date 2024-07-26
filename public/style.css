@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: cadetblue;
     
 }
 
@@ -43,13 +44,27 @@ header {
     color: #333;
     font-weight: 500;
 }
+footer{
+    width: 100%;
+    height: 4rem;
+    position: fixed;
+    background-color: #333;
+    margin-top: 3rem;
+    padding: 10px;
+
+}
+footer p{
+    text-align: center;
+    padding: 10px;
+    color: bisque;
+}
 
 /* Registration */
 
 /* Basic styles for the form */
 .register-form {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 1em;
     background: #f9f9f9;
     border-radius: 5px;
@@ -117,7 +132,7 @@ a:hover {
 /* Basic styles for the form */
 .login-form {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 1em;
     background: #f9f9f9;
     border-radius: 5px;
@@ -244,7 +259,7 @@ p a{
 /* add product */
 .product-add-form {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 1em;
     background: #f9f9f9;
     border-radius: 5px;
@@ -408,7 +423,7 @@ img{
 .profile-buttons {
     display: flex;
     gap: 8rem;
-    margin-left: 10rem;
+    margin-left: 14rem;
 }
 .profile-buttons button{
     cursor: pointer;

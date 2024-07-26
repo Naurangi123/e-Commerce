@@ -5,6 +5,7 @@ const passport = require('passport');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const passportConfig=require('./config/passport')
+const cookieParser = require('cookie-parser');
 const User=require('./models/User')
 const profileRoutes=require('./routes/profileRoutes')
 const userRoutes = require('./routes/userRoutes');
@@ -31,6 +32,7 @@ app.use(session({
     saveUninitialized: false
 
 }));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());

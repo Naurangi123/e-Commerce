@@ -10,11 +10,11 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/cart/products">All Products</a></li>
-                <li><a href="/cart">Your Cart</a></li>
-                <li><a href="/products/addProduct">Add Product</a></li>
-                <li><a href="/profile/create_profile">Create Profile</a></li>
-                <li><a href="/profile/profiles">Profile</a></li>
                 <% if (username) { %>
+                    <li><a href="/profile/create_profile">Create Profile</a></li>
+                    <li><a href="/profile/profiles">Profile</a></li>
+                    <li><a href="/products/addProduct">Add Product</a></li>
+                    <li><a href="/cart">Your Cart</a></li>
                     <li><a href="/logout">Logout</a></li>
                 <% } else { %>
                     <li><a href="/auth/login">Login</a></li>

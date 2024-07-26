@@ -6,9 +6,9 @@ const {isAuthenticated} = require('../middleware/auth');
 
 router.get('/profiles',isAuthenticated,profileController.profile)
 router.get('/create_profile',isAuthenticated,profileController.profileForm);
-router.post('/', upload,isAuthenticated,profileController.createProfile);
-router.get('/:id/edit',isAuthenticated,profileController.editProfileForm);
-router.post('/:id/edit',upload,isAuthenticated,profileController.editProfile);
-router.post('/:id/delete',isAuthenticated,profileController.deleteProfile);
+router.post('/profiles', upload,isAuthenticated,profileController.createProfile);
+router.get('/:_id/edit',isAuthenticated,profileController.editProfileForm);
+router.put('/:_id/',upload,isAuthenticated,profileController.editProfile);
+router.delete('/:_id',isAuthenticated,profileController.deleteProfile);
 
 module.exports = router;

@@ -8,7 +8,7 @@ module.exports.profile= async(req, res) => {
     if (user) {
         username = user.username;
     }
-    const profiles = await Profile.find({});
+    const profiles = await Profile.find({ username: req.user.username });
     res.render('profile/profiles',{ profiles,username});
 };
 

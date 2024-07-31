@@ -1,15 +1,17 @@
 <!-- views/products/new.ejs -->
 <%-include('../layouts/header') %>
-<%-include('../home') %>
-    <div class="product-add-form">
-        <h1>Add Item/Product</h1>
-        <form action="/products" method="POST" enctype="multipart/form-data">
-            <input type="text" id="name" name="name"placeholder="Product Name" required><br>
-            <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/gif" placeholder="Select an image" required><br>
-            <input type="text" id="price" name="price" placeholder="Price" required><br>  
-            <input type="text" name="author" placeholder="Author" required value="<%= username %>"><br>
-            <input type="text" id="quantity" name="quantity" placeholder="Quantity" required><br>
-            <button type="submit">Create Product</button>
-        </form>
-    </div>
+<div class="back-button">
+    <button type="button"><a href="/">Home</a></button>
+</div>
+<div class="product-add-form">
+    <h1>Add Item/Product</h1>
+    <form action="/products" method="POST" enctype="multipart/form-data">
+        <input type="text" id="name" name="name"placeholder="Product Name" required><br>
+        <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/gif" placeholder="Select an image" required><br>
+        <input type="text" id="price" name="price" placeholder="Price" required><br>  
+        <input type="text" name="author" placeholder="Author" required value="<%= username %>"><br>
+        <input type="text" id="quantity" name="quantity" placeholder="Quantity" required><br>
+        <button type="submit">Create Product</button>
+    </form>
+</div>
 <%-include('../layouts/footer') %>

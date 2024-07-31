@@ -10,6 +10,6 @@ const profileSchema = new mongoose.Schema({
     username: { type: String, unique: true } 
 });
 
-// profileSchema.plugin(passportLocalMongoose);
+profileSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Profile', profileSchema);

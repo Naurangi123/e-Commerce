@@ -3,30 +3,17 @@ const Cart = require('../models/Cart');
 const User=require('../models/User')
 const mongoose=require('mongoose')
 
-module.exports.getAllProducts = async (req, res) => {
-    try {
-        let username = null;
-        const user = await User.findOne({ username: req.user.username });
-        if (user) {
-            username = user.username;
-        }
-        const products = await Product.find({});
-        res.render('products/index', { products, username });
-    } catch (err) {
-        res.status(500).send("Error retrieving products");
-    }
-};
 
 module.exports.addProductToCart = async (req, res) => {
     try {
         const { productId } = req.body;
         if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
-            return res.status(400).send("Invalid productId");
+            return req.flash("error","Invalid productId");
         }
         const product = await Product.findById(productId);
 
         if (!product) {
-            return res.status(404).send("Product not found");
+            return req.flash("error","Product not found");
         }
         let cart = await Cart.findOne({ userId: req.user._id });
 
@@ -36,7 +23,7 @@ module.exports.addProductToCart = async (req, res) => {
                 products: [{ product: productId, quantity: 1 }]
             });
             await newCart.save();
-            return res.redirect('/cart'); 
+            return res.redirect('/'); 
         }
 
         const existingProductIndex = cart.products.findIndex(p => {
@@ -49,10 +36,9 @@ module.exports.addProductToCart = async (req, res) => {
         }
 
         await cart.save();
-        res.redirect('/cart');
+        res.redirect('/');
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Error adding product to cart");
+        req.flash("error","Error adding product to cart");
     }
 };
 
@@ -62,12 +48,12 @@ module.exports.updateCart = async (req, res) => {
         const cart = await Cart.findOne({ userId: req.user._id });
 
         if (!cart) {
-            return res.status(404).send("Cart not found");
+            return req.flash("error","Cart not found");
         }
 
         const product = cart.products.find(p => p.product.toString() === productId);
         if (!product) {
-            return res.status(404).send("Product not found in cart");
+            return req.flash("error","Product not found in cart");
         }
 
         if (quantity <= 0) {
@@ -79,7 +65,7 @@ module.exports.updateCart = async (req, res) => {
         await cart.save();
         res.redirect('/cart');
     } catch (err) {
-        res.status(500).send("Error updating cart");
+        req.flash("error","Error updating cart");
     }
 };
 
@@ -89,7 +75,7 @@ module.exports.removeProductFromCart = async (req, res) => {
         const cart = await Cart.findOne({ userId: req.user._id });
 
         if (!cart) {
-            return res.status(404).send("Cart not found");
+            return req.flash("error","Cart not found");
         }
 
         cart.products = cart.products.filter(p => p.product.toString() !== productId);
@@ -97,7 +83,7 @@ module.exports.removeProductFromCart = async (req, res) => {
         await cart.save();
         res.redirect('/cart');
     } catch (err) {
-        res.status(500).send("Error removing product from cart");
+        req.flash("error","Error removing product from cart");
     }
 };
 
@@ -111,6 +97,6 @@ module.exports.getCart = async (req, res) => {
         const cart = await Cart.findOne({ userId: req.user._id }).populate('products.product');
         res.render('cart/cart', { cart,username });
     } catch (err) {
-        res.status(500).send("Error retrieving cart");
+        req.flash('error',"Error retrieving cart");
     }
 };

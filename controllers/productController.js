@@ -18,8 +18,7 @@ module.exports.addProduct=async (req, res) => {
         await newProduct.save();
         res.redirect('/');
     } catch (error) {
-        console.error('Error creating product:', error);
-        res.status(500).send('Error creating product');
+        req.flash('error','Error creating product');
     }
 }
 
@@ -33,13 +32,12 @@ module.exports.editForm = async (req, res) => {
         }
         const product = await Product.findById(req.params._id);
         if (!product) {
-            res.status(404).send('Product not found');
+            req.flash("error",'Product not found');
             return;
         }
-        res.render('products/editProduct', { product,username}); // Corrected template path
+        res.render('products/editProduct', { product,username}); 
     } catch (error) {
-        console.error('Error fetching product for edit:', error);
-        res.status(500).send('Error fetching product for edit');
+        req.flash("error",'Error fetching product for edit');
     }
 };
 
@@ -53,8 +51,8 @@ module.exports.updateProduct = async (req, res) => {
 
         res.redirect('/'); // Redirect to the product list page after update
     } catch (error) {
-        console.error('Error updating product:', error);
-        res.status(500).send('Error updating product');
+        
+        req.flash("error",'Error updating product');
     }
 };
 

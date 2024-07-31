@@ -1,9 +1,12 @@
 <!-- views/create_profile.ejs -->
 <%-include('../layouts/header') %>
+<div class="back-button">
+    <button type="button"><a href="/">Home</a></button>
+</div>
 <div class="product-add-form">
     <h1>Create Profile</h1>
     <form action="/profile/profiles" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="text" name="name" placeholder="Name" required value="<%= user.name %>" ><br>
         <input type="file" name="image" accept="image/jpeg, image/png, image/gif" placeholder="Select an Image" required><br><br>
         <textarea name="bio" placeholder="Bio" required></textarea><br>
         <input type="text" name="location" placeholder="Location" required><br>

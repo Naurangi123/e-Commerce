@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: cadetblue;
+    background-color: #fff;
     
 }
 
@@ -41,15 +41,15 @@ header {
 .navbar nav ul li a {
     text-decoration: none;
     text-transform: capitalize;
-    color: #333;
+    color: #161414;
     font-weight: 500;
 }
 footer{
-    width: 100%;
+    width: 98%;
     height: 4rem;
-    position: fixed;
+    position: absolute;
     background-color: #333;
-    margin-top: 3rem;
+    margin-top: 14rem;
     padding: 10px;
 
 }
@@ -57,6 +57,106 @@ footer p{
     text-align: center;
     padding: 10px;
     color: bisque;
+}
+.alert-success {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid #d4edda;
+    border-radius: 4px;
+    background-color: #d4edda;
+    color: #155724;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+.alert-danger {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid #d4edda;
+    border-radius: 4px;
+    background-color: #e4cecc;
+    color: #ca1512;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.alert-success::before {
+    content: "✓ ";
+    font-size: 18px;
+    margin-right: 10px;
+}
+.alert-error::before {
+    content: "✓ ";
+    font-size: 18px;
+    margin-right: 10px;
+}
+button{
+    background-color: #63ee1e;
+    border: aqua;
+    cursor: pointer;
+    font-size: 16px;
+}
+/*  back button*/
+.back-button{
+    margin: 2rem;
+}
+.back-button button a{
+    text-transform: capitalize;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+
+
+}
+.back-button button{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Icon counter */
+
+.info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    margin: 0.8rem 8.8rem 1rem 10rem;
+}
+
+.info-text {
+    font-size: 16px;
+    margin: 0;
+}
+
+.cart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: rgb(49, 129, 41);
+    color: rgb(8, 5, 5);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 /* Registration */
@@ -208,6 +308,19 @@ h1{
 }
 p a{
     color: #333;
+    
+}
+.form p{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: 32rem;
+    letter-spacing: 2px;
+}
+.form p a{
+    word-spacing: 2px;
+    color: sienna;
+    text-decoration: line-through;
 }
 .products {
     display: flex;
@@ -220,10 +333,11 @@ p a{
 .product {
     flex: 1 0 calc(30% - 25px); 
     max-width: calc(30% - 135px); 
-    border: 1px solid #ccc; 
+    border: 1px solid #040303; 
+    border-radius: 5px;
     padding: 10px; 
     box-sizing: border-box; 
-    box-shadow: 0 0 10px rgb(162, 27, 220),0 4px 6px rgba(42, 180, 84, 0.868),0 10px 20px rgb(110, 229, 41);
+    box-shadow: 0 0 10px rgb(143, 133, 148);
 }
 
 
@@ -237,6 +351,7 @@ p a{
 }
 .product-info p{
     margin: 0;
+    text-transform: capitalize;
 }
 
 .buttons {
@@ -382,17 +497,21 @@ img{
     border-radius: 8px;    
     padding: 1rem 0 0 0rem;       
     margin-bottom: 16px;   
-    background-color: #f9f9f9; 
-    max-width: 600px;      
+    background-color: #f9f9f9;      
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     margin-left: 21rem;
+    margin-right: 12rem;
 }
-.profile .image {
+.profile-container{
+    margin-right: 5rem;
+
+}
+.profile-image {
     text-align: center; 
     margin-bottom: 12px; 
 }
 
-.profile .image img {
+.profile-image img {
     width: 100px;         
     height: 100px;        
     border-radius: 50%;   
@@ -410,7 +529,8 @@ img{
 }
 
 .profile-info p:first-child {
-    font-weight: bold; 
+    font-weight: bold;
+    text-transform: capitalize; 
 }
 
 

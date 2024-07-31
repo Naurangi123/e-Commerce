@@ -1,12 +1,14 @@
 <!-- views/edit_profile.ejs -->
 <%-include('../layouts/header') %>
-
+<div class="back-button">
+    <button type="button"><a href="/">Home</a></button>
+</div>
 <div class="product-add-form">
     <h1>Edit Your Profile</h1>
     <form action="/profile/<%= profile._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" value="<%= profile.name %>" required>
+        <input type="text" name="name" value="<%= user.name %>" required>
         <input type="file" name="image" value="<%= profile.image %>" required>
-        <textarea name="bio" required><%= profile.bio %></textarea>
+        <textarea name="bio" value="<%= profile.bio %>" required></textarea>
         <input type="text" name="location" value="<%= profile.location %>" required>
         <button type="submit">Update Profile</button>
     </form>
